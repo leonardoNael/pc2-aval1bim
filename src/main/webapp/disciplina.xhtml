@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Disciplina</title>
+</h:head>
+<h:body>
+
+	<p:growl id="msgs" showDetail="false" life="7000" sticky="false"/>
+	
+	<h:form id="form">
+		
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Nome: "/>
+			<p:inputText 
+				required="true" 
+				label="Nome" 
+				value="#{disciplinaMB.edit.nome}"/>
+			
+			<h:outputLabel value="Aulas Semanais: "/>
+			<p:spinner
+				stepFactor="0.5"
+				required="true" 
+				label="Aulas Semanais"
+				value="#{disciplinaMB.edit.aulas}"/>
+			
+			<h:outputLabel value="Professor(es): "/>
+			<h:panelGroup>
+				<p:pickList value="#{disciplinaMB.professores}" var="prof" 
+					effect="blind" label="Professor(es)" style="background-color:#fff;height: 3px;"
+					itemValue="#{prof}" itemLabel="#{prof.nome}" 
+					converter="#{entityConverter}" required="true">
+					<f:facet name="sourceCaption">Professor(es)</f:facet>
+					<f:facet name="targetCaption">Professor(es) Selecionados</f:facet>
+				</p:pickList>
+			</h:panelGroup>
+			
+			<p:commandButton 
+				value="Salvar"
+				update=":msgs form" 
+				actionListener="#{disciplinaMB.onSave()}"/>
+			
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
